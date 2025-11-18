@@ -3,7 +3,7 @@
  */
 package com.mycompany.caesarcipherproject;
 
-import com.mycompany.models.CaesarEncrypter;
+import com.mycompany.presentation.MainFrame;
 
 /**
  *
@@ -12,16 +12,8 @@ import com.mycompany.models.CaesarEncrypter;
 public class CaesarCipherProject {
 
     public static void main(String[] args) {
-        CaesarEncrypter encrypter
-                = new CaesarEncrypter(CaesarEncrypter.Alphabet.ASCII_ALPHABET, 5);
-        try {
-        String palabra = encrypter.encrypt("pshermancalle#$%=!|||");
-        System.out.println(palabra);
-        String palabra2 = encrypter.decrypt(palabra);
-        System.out.println(palabra2);
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
-        }
+        MainFrame frm = new MainFrame();
+        frm.setVisible(true);
 
     }
 }

@@ -14,7 +14,7 @@ import java.util.Map;
 public final class CaesarEncrypter {
 
     public enum Alphabet {
-        ASCII_ALPHABET(generateASCIIAlphabet()),
+        ASCII_ALPHABET_PRINTABLE(generateASCIIAlphabet()),
         SPA_ALPHABET(generateSpanishAlphabet()),
         ENG_ALPHABET(generateEnglishAlphabet());
 
@@ -26,10 +26,13 @@ public final class CaesarEncrypter {
         }
 
         private static char[] generateASCIIAlphabet() {
-            char[] array = new char[95];
+            char[] array;
+
+            array = new char[95];
             for (int i = 0; i < array.length; i++) {
                 array[i] = (char) (32 + i);
             }
+
             return array;
         }
 
@@ -87,7 +90,11 @@ public final class CaesarEncrypter {
             indexMap.put(c, i);
             i = i + 1;
         }
-
+        
+        if (alphabet == CaesarEncrypter.Alphabet.ASCII_ALPHABET_PRINTABLE){
+            word = sanitizeString(word);
+        }
+        
         i = 0;
         for (char c : word.toCharArray()) {
             Integer index = indexMap.get(c);
@@ -147,17 +154,18 @@ public final class CaesarEncrypter {
         //Se le resta la clave mod n
         for (i = 0; i < numeratedWord.length; i++) {
             numeratedWord[i]
-                    = (numeratedWord[i] - key + alphabetArray.length) % alphabetArray.length;
+                    = Math.floorMod(numeratedWord[i] - key, alphabetArray.length);
+
         }
 
-        StringBuilder encryptedWord = new StringBuilder();
+        StringBuilder decryptedWord = new StringBuilder();
 
         //Se convierte de nuevo la secuencia de números a una letra
         for (int j : numeratedWord) {
-            encryptedWord.append(alphabetArray[j]);
+            decryptedWord.append(alphabetArray[j]);
         }
 
-        return new String(encryptedWord);
+        return new String(decryptedWord);
 
     }
 
@@ -173,6 +181,10 @@ public final class CaesarEncrypter {
      */
     public int getKey() {
         return key;
+    }
+
+    private String sanitizeString(String string) {
+        return string.replaceAll("[^\\x20-\\x7E]", " ");
     }
 
 }

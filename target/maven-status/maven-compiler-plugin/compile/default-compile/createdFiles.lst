@@ -1,3 +1,6 @@
-com\mycompany\models\CaesarEncrypter$Alphabet.class
 com\mycompany\caesarcipherproject\CaesarCipherProject.class
 com\mycompany\models\CaesarEncrypter.class
+com\mycompany\presentation\MainFrame.class
+com\mycompany\models\CaesarEncrypter$Alphabet.class
+com\mycompany\presentation\MainFrame$2.class
+com\mycompany\presentation\MainFrame$1.class
