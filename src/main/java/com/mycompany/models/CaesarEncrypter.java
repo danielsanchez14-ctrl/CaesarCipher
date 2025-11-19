@@ -80,6 +80,8 @@ public final class CaesarEncrypter {
     }
 
     public String encrypt(String word) {
+        word = sanitizeString(word);
+
         char[] alphabetArray = this.alphabet.getCharacters();
         int[] numeratedWord = new int[word.length()];
         Map<Character, Integer> indexMap = new HashMap<>();
@@ -90,11 +92,12 @@ public final class CaesarEncrypter {
             indexMap.put(c, i);
             i = i + 1;
         }
-        
+
+        /*
         if (alphabet == CaesarEncrypter.Alphabet.ASCII_ALPHABET_PRINTABLE){
             word = sanitizeString(word);
         }
-        
+         */
         i = 0;
         for (char c : word.toCharArray()) {
             Integer index = indexMap.get(c);
@@ -126,6 +129,8 @@ public final class CaesarEncrypter {
     }
 
     public String decrypt(String word) {
+        word = sanitizeString(word);
+
         char[] alphabetArray = this.alphabet.getCharacters();
         int[] numeratedWord = new int[word.length()];
         Map<Character, Integer> indexMap = new HashMap<>();
@@ -136,6 +141,7 @@ public final class CaesarEncrypter {
             indexMap.put(c, i);
             i = i + 1;
         }
+
         //Indexar la palabra
         i = 0;
         for (char c : word.toCharArray()) {
@@ -184,7 +190,8 @@ public final class CaesarEncrypter {
     }
 
     private String sanitizeString(String string) {
-        return string.replaceAll("[^\\x20-\\x7E]", " ");
+        return string.replaceAll("\\s", " ");
+        //return string.replaceAll("[^\\x20-\\x7E]", " ");
     }
 
 }
